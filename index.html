@@ -3,514 +3,210 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="MOR Studio — We craft digital experiences that move people."/>
+<meta name="description" content="MOR Studio — Photography & Videography. Tangerang Creative Studio."/>
 <title>MOR Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet"/>
 <style>
-  :root {
-    --black: #080808;
-    --white: #f5f0e8;
-    --fog: rgba(245,240,232,0.06);
-    --fog2: rgba(245,240,232,0.12);
-    --fog3: rgba(245,240,232,0.22);
-    --accent: #c8ff00;
-  }
+:root{
+  --black:#080808;
+  --white:#f5f0e8;
+  --fog:rgba(245,240,232,0.05);
+  --fog2:rgba(245,240,232,0.10);
+  --fog3:rgba(245,240,232,0.20);
+  --accent:#c8ff00;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* CURSOR */
+#cur{
+  position:fixed;top:0;left:0;
+  width:10px;height:10px;
+  background:var(--white);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  will-change:transform;mix-blend-mode:difference;
+}
+#cur-ring{
+  position:fixed;top:0;left:0;
+  width:36px;height:36px;
+  border:1px solid rgba(245,240,232,.35);border-radius:50%;
+  pointer-events:none;z-index:9998;
+  will-change:transform;
+}
 
-  html { scroll-behavior: smooth; }
+/* NOISE */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.028;pointer-events:none;z-index:9997;
+}
 
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    overflow-x: hidden;
-    cursor: none;
-  }
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 48px;transition:background .4s,backdrop-filter .4s;
+}
+nav.scrolled{background:rgba(8,8,8,.88);backdrop-filter:blur(18px);}
+nav ul{list-style:none;display:flex;gap:32px;align-items:center;}
+nav a{color:rgba(245,240,232,.5);text-decoration:none;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;transition:color .25s;}
+nav a:hover{color:var(--white);}
+.nav-cta{padding:10px 22px;border:1px solid rgba(245,240,232,.18);color:var(--white)!important;transition:background .25s,border-color .25s;}
+.nav-cta:hover{background:var(--white);color:var(--black)!important;}
 
-  /* ── CURSOR ── */
-  #cursor {
-    position: fixed; top:0; left:0;
-    width:12px; height:12px;
-    background: var(--white);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform .15s ease, background .2s;
-    mix-blend-mode: difference;
-  }
-  #cursor-ring {
-    position: fixed; top:0; left:0;
-    width:40px; height:40px;
-    border: 1px solid rgba(245,240,232,.4);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform .4s cubic-bezier(.25,.46,.45,.94), opacity .3s;
-  }
-  body:hover #cursor-ring { opacity:1; }
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 48px 80px;position:relative;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(100px);pointer-events:none;mix-blend-mode:screen;animation:drift 16s ease-in-out infinite alternate;}
+.blob-1{width:640px;height:640px;background:radial-gradient(circle,rgba(245,240,232,.16) 0%,transparent 70%);top:-180px;right:-80px;}
+.blob-2{width:420px;height:420px;background:radial-gradient(circle,rgba(245,240,232,.09) 0%,transparent 70%);bottom:8%;left:3%;animation-delay:-6s;animation-duration:20s;}
+.blob-3{width:280px;height:280px;background:radial-gradient(circle,rgba(200,255,0,.05) 0%,transparent 70%);top:35%;left:42%;animation-delay:-10s;animation-duration:24s;}
+@keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(28px,-36px) scale(1.07)}100%{transform:translate(-18px,18px) scale(.96)}}
+.hero-eyebrow{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.38);margin-bottom:18px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,14vw,15rem);line-height:.9;letter-spacing:-.01em;position:relative;z-index:2;}
+.hero-title em{font-style:normal;-webkit-text-stroke:1px rgba(245,240,232,.3);color:transparent;}
+.hero-sub{display:flex;align-items:center;gap:40px;margin-top:36px;z-index:2;position:relative;}
+.hero-sub p{max-width:320px;font-size:.88rem;line-height:1.75;color:rgba(245,240,232,.45);font-weight:300;}
+.btn-primary{flex-shrink:0;display:inline-flex;align-items:center;gap:10px;padding:15px 30px;background:var(--white);color:var(--black);font-size:.72rem;font-weight:500;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;border:none;cursor:none;position:relative;overflow:hidden;}
+.btn-primary::after{content:'';position:absolute;inset:0;background:var(--accent);transform:translateX(-101%);transition:transform .38s cubic-bezier(.77,0,.18,1);z-index:0;}
+.btn-primary:hover::after{transform:translateX(0);}
+.btn-primary span{position:relative;z-index:1;}
+.btn-arrow{font-size:1rem;position:relative;z-index:1;transition:transform .3s;}
+.btn-primary:hover .btn-arrow{transform:translate(4px,-4px);}
 
-  /* ── NOISE OVERLAY ── */
-  body::before {
-    content:'';
-    position: fixed; inset:0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    opacity: .03;
-    pointer-events: none;
-    z-index: 9997;
-  }
+/* TICKER */
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--fog2);border-bottom:1px solid var(--fog2);padding:13px 0;background:var(--fog);}
+.ticker{display:flex;white-space:nowrap;animation:ticker 20s linear infinite;}
+.ticker-item{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;color:rgba(245,240,232,.22);padding:0 44px;}
+.ticker-item.ac{color:var(--accent);}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top:0; left:0; right:0;
-    z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 28px 48px;
-    mix-blend-mode: normal;
-  }
-  .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: .15em;
-    color: var(--white);
-    text-decoration: none;
-  }
-  .logo span { color: var(--accent); }
-  nav ul { list-style:none; display:flex; gap:36px; }
-  nav a {
-    color: rgba(245,240,232,.55);
-    text-decoration: none;
-    font-size: .8rem;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    transition: color .3s;
-  }
-  nav a:hover { color: var(--white); }
+/* SECTION LABEL */
+.section-label{font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;}
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 48px 80px;
-    position: relative;
-    overflow: hidden;
-  }
+/* ABOUT */
+#about{padding:140px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-heading{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5vw,5.5rem);line-height:1;letter-spacing:.02em;}
+.about-body{display:flex;flex-direction:column;gap:22px;}
+.about-body p{font-size:.92rem;line-height:1.82;color:rgba(245,240,232,.5);font-weight:300;}
+.stat-row{display:flex;gap:44px;margin-top:14px;}
+.stat h3{font-family:'Bebas Neue',sans-serif;font-size:3.4rem;color:var(--white);line-height:1;}
+.stat h3 span{color:var(--accent);}
+.stat p{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(245,240,232,.3);margin-top:4px;}
 
-  /* animated fog blobs */
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(90px);
-    pointer-events: none;
-    mix-blend-mode: screen;
-    animation: drift 14s ease-in-out infinite alternate;
-  }
-  .blob-1 {
-    width: 600px; height:600px;
-    background: radial-gradient(circle, rgba(245,240,232,.18) 0%, transparent 70%);
-    top: -150px; right: -100px;
-    animation-delay: 0s;
-  }
-  .blob-2 {
-    width: 400px; height:400px;
-    background: radial-gradient(circle, rgba(245,240,232,.1) 0%, transparent 70%);
-    bottom: 10%; left: 5%;
-    animation-delay: -5s;
-    animation-duration: 18s;
-  }
-  .blob-3 {
-    width: 300px; height:300px;
-    background: radial-gradient(circle, rgba(200,255,0,.06) 0%, transparent 70%);
-    top: 30%; left: 40%;
-    animation-delay: -8s;
-    animation-duration: 20s;
-  }
+/* SERVICES / TABS */
+#services{padding:0 48px 140px;}
+.services-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:48px;}
+.services-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);line-height:1;}
+.tab-nav{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--fog2);margin-bottom:0;}
+.tab-btn{padding:14px 22px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,.35);background:none;border:none;border-bottom:2px solid transparent;cursor:none;transition:color .25s,border-color .25s;margin-bottom:-1px;font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.tab-btn:hover{color:rgba(245,240,232,.72);}
+.tab-btn.active{color:var(--white);border-bottom-color:var(--accent);}
+.tab-panels{position:relative;}
+.tab-panel{display:none;padding:60px 0 0;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+.tab-panel.active{display:grid;}
+.tab-panel-left h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,4vw,3.8rem);line-height:1;margin-bottom:20px;}
+.tab-panel-left p{font-size:.88rem;line-height:1.82;color:rgba(245,240,232,.5);font-weight:300;margin-bottom:28px;}
+.tab-highlights{display:flex;flex-direction:column;gap:10px;}
+.tab-highlight{display:flex;align-items:center;gap:14px;padding:13px 18px;border:1px solid var(--fog2);font-size:.78rem;color:rgba(245,240,232,.5);transition:border-color .3s,color .3s;}
+.tab-highlight:hover{border-color:var(--fog3);color:var(--white);}
+.tab-highlight .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;}
+.tab-panel-right{aspect-ratio:4/3;border:1px solid var(--fog2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:var(--fog);}
+.tab-panel-right .ph{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3.5vw,2.8rem);color:rgba(245,240,232,.07);text-align:center;letter-spacing:.05em;padding:24px;}
+.tab-panel-right .ti{font-size:3rem;position:absolute;color:rgba(245,240,232,.05);}
+.tab-cta{margin-top:28px;display:inline-flex;align-items:center;gap:10px;color:var(--white);font-size:.74rem;letter-spacing:.13em;text-transform:uppercase;text-decoration:none;padding-bottom:6px;border-bottom:1px solid rgba(245,240,232,.18);transition:border-color .3s;}
+.tab-cta:hover{border-color:var(--accent);}
+.tab-cta .arr{transition:transform .3s;}
+.tab-cta:hover .arr{transform:translate(4px,-4px);}
 
-  @keyframes drift {
-    0% { transform: translate(0,0) scale(1); }
-    50% { transform: translate(30px,-40px) scale(1.08); }
-    100% { transform: translate(-20px, 20px) scale(.95); }
-  }
+/* WORK */
+#work{padding:0 0 140px;overflow:hidden;}
+.work-label{padding:0 48px;margin-bottom:40px;}
+.work-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5vw,5rem);padding:0 48px;margin-bottom:56px;}
+.projects-marquee{display:flex;gap:20px;width:max-content;animation:marquee 28s linear infinite;}
+.projects-marquee:hover{animation-play-state:paused;}
+.project-card{width:340px;height:230px;border:1px solid var(--fog2);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;position:relative;overflow:hidden;flex-shrink:0;cursor:none;transition:border-color .3s;}
+.project-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.88) 0%,transparent 60%);z-index:1;}
+.project-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .8s cubic-bezier(.25,.46,.45,.94);}
+.project-card:hover .project-bg{transform:scale(1.06);}
+.project-card:hover{border-color:var(--fog3);}
+.project-info{position:relative;z-index:2;}
+.project-tag{font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(245,240,232,.38);margin-bottom:6px;}
+.project-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.04em;}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-  .hero-eyebrow {
-    font-size: .7rem;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,.4);
-    margin-bottom: 20px;
-  }
+/* CONTACT */
+#contact{padding:140px 48px;position:relative;overflow:hidden;}
+.contact-blob{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(245,240,232,.06) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;animation:pulse 9s ease-in-out infinite alternate;}
+@keyframes pulse{0%{transform:translate(-50%,-50%) scale(.9);opacity:.5}100%{transform:translate(-50%,-50%) scale(1.1);opacity:1}}
+.contact-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.contact-heading{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,9rem);line-height:.92;margin-bottom:28px;}
+.contact-heading em{font-style:normal;-webkit-text-stroke:1px rgba(245,240,232,.28);color:transparent;}
+.contact-sub{font-size:.88rem;line-height:1.75;color:rgba(245,240,232,.42);font-weight:300;}
+.contact-links{display:flex;flex-direction:column;gap:20px;}
+.contact-block{border-top:1px solid var(--fog2);padding-top:18px;}
+.contact-block-label{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,240,232,.28);margin-bottom:10px;}
+.contact-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:rgba(245,240,232,.6);font-size:.84rem;letter-spacing:.04em;transition:color .25s;padding:4px 0;}
+.contact-link:hover{color:var(--white);}
+.contact-link .ci{font-size:.9rem;opacity:.5;}
 
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4.5rem, 13vw, 14rem);
-    line-height: .92;
-    letter-spacing: -.01em;
-    position: relative;
-    z-index:2;
-  }
-  .hero-title em {
-    font-style:normal;
-    -webkit-text-stroke: 1px rgba(245,240,232,.35);
-    color: transparent;
-  }
+/* FOOTER */
+footer{border-top:1px solid var(--fog2);padding:26px 48px;display:flex;justify-content:space-between;align-items:center;}
+footer p{font-size:.68rem;color:rgba(245,240,232,.22);letter-spacing:.08em;}
 
-  .hero-sub {
-    display:flex; align-items:center; gap:40px;
-    margin-top: 40px;
-    z-index:2; position:relative;
-  }
-  .hero-sub p {
-    max-width: 340px;
-    font-size: .9rem;
-    line-height: 1.7;
-    color: rgba(245,240,232,.5);
-    font-weight:300;
-  }
-  .btn-primary {
-    flex-shrink:0;
-    display: inline-flex; align-items:center; gap:10px;
-    padding: 16px 32px;
-    background: var(--white);
-    color: var(--black);
-    font-family: 'DM Sans', sans-serif;
-    font-size: .75rem;
-    font-weight: 500;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: none;
-    transition: background .25s, transform .25s;
-    position:relative;
-    overflow:hidden;
-  }
-  .btn-primary::after {
-    content:'';
-    position:absolute; inset:0;
-    background: var(--accent);
-    transform: translateX(-101%);
-    transition: transform .35s cubic-bezier(.77,0,.18,1);
-    z-index:0;
-  }
-  .btn-primary:hover::after { transform: translateX(0); }
-  .btn-primary span { position:relative; z-index:1; }
-  .btn-arrow { font-size:1rem; position:relative; z-index:1; transition: transform .3s; }
-  .btn-primary:hover .btn-arrow { transform: translate(4px,-4px); }
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .85s cubic-bezier(.25,.46,.45,.94),transform .85s cubic-bezier(.25,.46,.45,.94);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.rd1{transition-delay:.08s}.rd2{transition-delay:.18s}.rd3{transition-delay:.3s}.rd4{transition-delay:.44s}
 
-  /* ── SCROLLING TICKER ── */
-  .ticker-wrap {
-    overflow:hidden;
-    border-top: 1px solid var(--fog2);
-    border-bottom: 1px solid var(--fog2);
-    padding: 14px 0;
-    background: var(--fog);
-  }
-  .ticker {
-    display:flex;
-    white-space:nowrap;
-    animation: ticker 22s linear infinite;
-  }
-  .ticker-item {
-    font-family:'Bebas Neue',sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: .2em;
-    color: rgba(245,240,232,.25);
-    padding: 0 48px;
-  }
-  .ticker-item.accent { color: var(--accent); }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* ── ABOUT ── */
-  #about {
-    padding: 140px 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-  .section-label {
-    font-size: .65rem;
-    letter-spacing: .25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 24px;
-  }
-  .about-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 5vw, 5.5rem);
-    line-height:1;
-    letter-spacing:.02em;
-  }
-  .about-body {
-    display:flex; flex-direction:column; gap:24px;
-  }
-  .about-body p {
-    font-size:.95rem; line-height:1.8;
-    color: rgba(245,240,232,.55);
-    font-weight:300;
-  }
-  .stat-row {
-    display:flex; gap:48px; margin-top:16px;
-  }
-  .stat h3 {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:3.5rem;
-    color: var(--white);
-    line-height:1;
-  }
-  .stat h3 span { color:var(--accent); }
-  .stat p {
-    font-size:.72rem; letter-spacing:.1em; text-transform:uppercase;
-    color:rgba(245,240,232,.35); margin-top:4px;
-  }
-
-  /* ── SERVICES ── */
-  #services {
-    padding: 0 48px 140px;
-  }
-  .services-header {
-    display:flex; justify-content:space-between; align-items:flex-end;
-    margin-bottom: 64px;
-  }
-  .services-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size: clamp(2.5rem,5vw,5rem);
-    line-height:1;
-  }
-  .services-grid {
-    display:grid;
-    grid-template-columns: repeat(3,1fr);
-    gap:2px;
-  }
-  .service-card {
-    border: 1px solid var(--fog2);
-    padding: 48px 36px;
-    position: relative;
-    overflow: hidden;
-    cursor: none;
-    transition: border-color .4s;
-    background: var(--black);
-  }
-  .service-card::before {
-    content:'';
-    position:absolute; inset:0;
-    background: var(--fog);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform .5s cubic-bezier(.77,0,.18,1);
-  }
-  .service-card:hover::before { transform: scaleY(1); }
-  .service-card:hover { border-color: var(--fog3); }
-  .card-num {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1rem;
-    color: rgba(245,240,232,.18);
-    letter-spacing:.1em;
-    margin-bottom:32px;
-    display:block;
-    position:relative; z-index:1;
-  }
-  .card-icon {
-    font-size:1.8rem; margin-bottom:20px;
-    position:relative; z-index:1;
-  }
-  .service-card h3 {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1.8rem;
-    letter-spacing:.04em;
-    margin-bottom:16px;
-    position:relative; z-index:1;
-    transition: color .3s;
-  }
-  .service-card:hover h3 { color: var(--accent); }
-  .service-card p {
-    font-size:.83rem; line-height:1.75;
-    color:rgba(245,240,232,.45); font-weight:300;
-    position:relative; z-index:1;
-  }
-  .card-arrow {
-    position:absolute; bottom:36px; right:36px;
-    font-size:1.5rem;
-    color: rgba(245,240,232,.15);
-    transition: color .3s, transform .3s;
-    z-index:1;
-  }
-  .service-card:hover .card-arrow { color:var(--accent); transform:translate(4px,-4px); }
-
-  /* ── WORK / MARQUEE ── */
-  #work {
-    padding: 0 0 140px;
-    overflow:hidden;
-  }
-  .work-label { padding:0 48px; margin-bottom:48px; }
-  .work-title {
-    font-family:'Bebas Neue',sans-serif;
-    font-size: clamp(2.5rem,5vw,5rem);
-    padding: 0 48px; margin-bottom:64px;
-  }
-  .projects-marquee {
-    display:flex; gap:24px;
-    width: max-content;
-    animation: marquee 30s linear infinite;
-  }
-  .projects-marquee:hover { animation-play-state: paused; }
-  .project-card {
-    width: 360px; height:240px;
-    border: 1px solid var(--fog2);
-    display:flex; flex-direction:column;
-    justify-content:flex-end;
-    padding:28px;
-    position:relative;
-    overflow:hidden;
-    flex-shrink:0;
-    cursor:none;
-    transition: border-color .3s;
-  }
-  .project-card::after {
-    content:'';
-    position:absolute; inset:0;
-    background: linear-gradient(to top, rgba(8,8,8,.85) 0%, transparent 60%);
-    z-index:1;
-  }
-  .project-bg {
-    position:absolute; inset:0;
-    background-size:cover; background-position:center;
-    transition: transform .8s cubic-bezier(.25,.46,.45,.94);
-  }
-  .project-card:hover .project-bg { transform: scale(1.06); }
-  .project-card:hover { border-color: var(--fog3); }
-  .project-info { position:relative; z-index:2; }
-  .project-tag {
-    font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
-    color:rgba(245,240,232,.4); margin-bottom:8px;
-  }
-  .project-name {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1.6rem; letter-spacing:.04em;
-  }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* ── CONTACT ── */
-  #contact {
-    padding: 140px 48px;
-    text-align:center;
-    position:relative;
-    overflow:hidden;
-  }
-  .contact-blob {
-    position:absolute;
-    width:700px; height:700px;
-    background: radial-gradient(circle, rgba(245,240,232,.07) 0%, transparent 70%);
-    border-radius:50%;
-    top:50%; left:50%;
-    transform: translate(-50%,-50%);
-    pointer-events:none;
-    animation: pulse 8s ease-in-out infinite alternate;
-  }
-  @keyframes pulse {
-    0% { transform: translate(-50%,-50%) scale(.9); opacity:.5; }
-    100% { transform: translate(-50%,-50%) scale(1.1); opacity:1; }
-  }
-  .contact-eyebrow {
-    font-size:.65rem; letter-spacing:.25em; text-transform:uppercase;
-    color:var(--accent); margin-bottom:24px;
-    position:relative; z-index:1;
-  }
-  .contact-heading {
-    font-family:'Bebas Neue',sans-serif;
-    font-size: clamp(3.5rem, 10vw, 10rem);
-    line-height:.95;
-    position:relative; z-index:1;
-    margin-bottom:48px;
-  }
-  .contact-heading em {
-    font-style:normal;
-    -webkit-text-stroke: 1px rgba(245,240,232,.3);
-    color:transparent;
-  }
-  .contact-email {
-    display:inline-block;
-    font-size:clamp(1rem,2vw,1.5rem);
-    color:rgba(245,240,232,.45);
-    text-decoration:none;
-    letter-spacing:.05em;
-    border-bottom:1px solid rgba(245,240,232,.15);
-    padding-bottom:6px;
-    transition:color .3s, border-color .3s;
-    position:relative; z-index:1;
-  }
-  .contact-email:hover { color:var(--white); border-color:rgba(245,240,232,.5); }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--fog2);
-    padding: 32px 48px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
-  footer p { font-size:.72rem; color:rgba(245,240,232,.25); letter-spacing:.08em; }
-  .footer-logo {
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1.2rem; letter-spacing:.15em;
-    color:rgba(245,240,232,.25);
-  }
-  .footer-logo span { color:var(--accent); }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity:0;
-    transform: translateY(40px);
-    transition: opacity .9s cubic-bezier(.25,.46,.45,.94), transform .9s cubic-bezier(.25,.46,.45,.94);
-  }
-  .reveal.visible { opacity:1; transform:translateY(0); }
-  .reveal-delay-1 { transition-delay:.1s; }
-  .reveal-delay-2 { transition-delay:.2s; }
-  .reveal-delay-3 { transition-delay:.35s; }
-  .reveal-delay-4 { transition-delay:.5s; }
-
-  /* ── NAV SCROLL ── */
-  nav.scrolled { background: rgba(8,8,8,.85); backdrop-filter: blur(16px); }
-  nav { transition: background .4s; }
-
-  /* ── RESPONSIVE ── */
-  @media(max-width:768px){
-    nav { padding:20px 24px; }
-    nav ul { display:none; }
-    #hero { padding:0 24px 64px; }
-    #about { grid-template-columns:1fr; padding:80px 24px; gap:40px; }
-    #services { padding:0 24px 80px; }
-    .services-grid { grid-template-columns:1fr; }
-    .services-header { flex-direction:column; align-items:flex-start; gap:20px; }
-    #contact { padding:80px 24px; }
-    footer { flex-direction:column; gap:16px; text-align:center; padding:24px; }
-    .hero-sub { flex-direction:column; align-items:flex-start; }
-    .work-title { padding:0 24px; }
-    .work-label { padding:0 24px; }
-    .stat-row { gap:32px; }
-  }
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:16px 24px;}
+  nav ul{display:none;}
+  #hero{padding:0 24px 60px;}
+  #about{grid-template-columns:1fr;padding:80px 24px;gap:36px;}
+  #services{padding:0 24px 80px;}
+  .services-header{flex-direction:column;align-items:flex-start;gap:16px;}
+  .tab-panel{grid-template-columns:1fr;}
+  .tab-panel-right{display:none;}
+  #contact{padding:80px 24px;}
+  .contact-inner{grid-template-columns:1fr;}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:20px 24px;}
+  .hero-sub{flex-direction:column;align-items:flex-start;}
+  .work-title,.work-label{padding:0 24px;}
+  .tab-nav{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#" class="logo">MOR<span>.</span></a>
+  <!-- SVG Logo based on the actual MOR STUDIO brand -->
+  <a href="#" style="display:block;text-decoration:none;">
+    <svg height="46" viewBox="0 0 300 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <!-- M — elegant thin serif strokes -->
+      <path d="M6 54 L6 8 C6 8 6 8 6 8 L24 36 L42 8 L42 54" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- O — rounded -->
+      <ellipse cx="78" cy="31" rx="18" ry="22" stroke="#f5f0e8" stroke-width="2"/>
+      <!-- R -->
+      <path d="M110 54 L110 8 L130 8 Q144 8 144 20 Q144 32 130 32 L110 32 M128 32 L147 54" stroke="#f5f0e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- STUDIO label centered under O -->
+      <text x="78" y="26" font-family="'DM Sans',sans-serif" font-size="7.5" letter-spacing="5" fill="#f5f0e8" text-anchor="middle" font-weight="300" opacity=".75">STUDIO</text>
+      <!-- Tagline -->
+      <text x="78" y="60" font-family="'DM Sans',sans-serif" font-size="5" letter-spacing="3.2" fill="#f5f0e8" text-anchor="middle" font-weight="300" opacity=".35">PHOTOGRAPHY &amp; VIDEOGRAPHY</text>
+    </svg>
+  </a>
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#work">Work</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
 </nav>
 
@@ -519,15 +215,14 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
-
-  <p class="hero-eyebrow reveal">Jakarta Creative Studio — Est. 2024</p>
-  <h1 class="hero-title reveal reveal-delay-1">
-    WE BUILD<br><em>WORLDS</em><br>THAT MOVE
+  <p class="hero-eyebrow reveal">Tangerang Creative Studio — Photography &amp; Videography</p>
+  <h1 class="hero-title reveal rd1">
+    WE<br><em>CAPTURE</em><br>YOUR WORLD
   </h1>
-  <div class="hero-sub reveal reveal-delay-2">
-    <p>MOR Studio crafts digital experiences, brand identities, and visual narratives that cut through the noise.</p>
-    <a href="#work" class="btn-primary">
-      <span>See Our Work</span>
+  <div class="hero-sub reveal rd2">
+    <p>MOR Studio menghadirkan visual yang bukan sekadar indah — tapi bercerita, bergerak, dan membekas.</p>
+    <a href="#services" class="btn-primary">
+      <span>Explore Services</span>
       <span class="btn-arrow">↗</span>
     </a>
   </div>
@@ -536,167 +231,193 @@
 <!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
-    <!-- doubled for seamless loop -->
-    <span class="ticker-item">Branding</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Web Design</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Motion</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Digital Strategy</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">UI / UX</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Content</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Branding</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Web Design</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Motion</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Digital Strategy</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">UI / UX</span>
-    <span class="ticker-item accent">✦</span>
-    <span class="ticker-item">Content</span>
-    <span class="ticker-item accent">✦</span>
+    <span class="ticker-item">Commercial</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">AI Creative Agency</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Creative Agency</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Podcast</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Wedding</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Make Up Artist</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Photo Studio</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Commercial</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">AI Creative Agency</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Creative Agency</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Podcast</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Wedding</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Make Up Artist</span><span class="ticker-item ac">✦</span>
+    <span class="ticker-item">Photo Studio</span><span class="ticker-item ac">✦</span>
   </div>
 </div>
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-left reveal">
+  <div class="reveal">
     <p class="section-label">Who We Are</p>
     <h2 class="about-heading">NOT HERE<br>TO BLEND IN.</h2>
   </div>
   <div class="about-body">
-    <p class="reveal reveal-delay-1">MOR Studio adalah studio kreatif digital yang berbasis di Jakarta. Kami percaya bahwa desain yang berani bukan sekadar pilihan estetika — ini adalah strategi bisnis.</p>
-    <p class="reveal reveal-delay-2">Setiap proyek yang kami sentuh melewati proses yang sama: riset mendalam, konsep yang tajam, dan eksekusi tanpa kompromi.</p>
-    <div class="stat-row reveal reveal-delay-3">
-      <div class="stat">
-        <h3>40<span>+</span></h3>
-        <p>Projects Done</p>
-      </div>
-      <div class="stat">
-        <h3>15<span>+</span></h3>
-        <p>Happy Clients</p>
-      </div>
-      <div class="stat">
-        <h3>3<span>yr</span></h3>
-        <p>In the Game</p>
-      </div>
+    <p class="reveal rd1">MOR Studio adalah studio kreatif Photography &amp; Videography berbasis di Tangerang. Kami hadir untuk klien yang menginginkan visual yang bukan rata-rata.</p>
+    <p class="reveal rd2">Dari commercial shoot, wedding cinematic, podcast production, hingga AI creative — kami tangani semuanya dengan standar yang sama: tidak biasa.</p>
+    <div class="stat-row reveal rd3">
+      <div class="stat"><h3>100<span>+</span></h3><p>Projects Done</p></div>
+      <div class="stat"><h3>50<span>+</span></h3><p>Happy Clients</p></div>
+      <div class="stat"><h3>5<span>yr</span></h3><p>In the Game</p></div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
+<!-- SERVICES / TABS -->
 <section id="services">
   <div class="services-header reveal">
     <h2 class="services-title">WHAT<br>WE DO</h2>
-    <p style="max-width:260px;font-size:.83rem;line-height:1.75;color:rgba(245,240,232,.4);font-weight:300;">
-      End-to-end creative solutions — from concept to the final pixel.
-    </p>
+    <p style="max-width:240px;font-size:.82rem;line-height:1.78;color:rgba(245,240,232,.38);font-weight:300;">Klik setiap layanan untuk detail — semua bisa dikustomisasi.</p>
   </div>
-  <div class="services-grid">
-    <div class="service-card reveal reveal-delay-1">
-      <span class="card-num">01</span>
-      <div class="card-icon">◈</div>
-      <h3>Brand Identity</h3>
-      <p>Logo, sistem visual, panduan brand — semua yang dibutuhkan agar bisnis Anda langsung dikenali dan diingat.</p>
-      <span class="card-arrow">↗</span>
+
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="commercial">Commercial</button>
+    <button class="tab-btn" data-tab="ai">AI Creative</button>
+    <button class="tab-btn" data-tab="creative">Creative Agency</button>
+    <button class="tab-btn" data-tab="podcast">Podcast</button>
+    <button class="tab-btn" data-tab="wedding">Wedding</button>
+    <button class="tab-btn" data-tab="mua">Make Up Artist</button>
+    <button class="tab-btn" data-tab="studio">Photo Studio</button>
+  </div>
+
+  <div class="tab-panels">
+
+    <div class="tab-panel active" id="tab-commercial">
+      <div class="tab-panel-left">
+        <p class="section-label">01 — Commercial</p>
+        <h3>COMMERCIAL<br>PRODUCTION</h3>
+        <p>Kami memproduksi konten commercial berkualitas tinggi untuk brand, produk, dan kampanye iklan. Dari konsep hingga color grading final — semua in-house.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Product Photography &amp; Video</div>
+          <div class="tab-highlight"><span class="dot"></span>TVC &amp; Digital Ad Production</div>
+          <div class="tab-highlight"><span class="dot"></span>Corporate Profile Film</div>
+          <div class="tab-highlight"><span class="dot"></span>Brand Campaign Shoot</div>
+        </div>
+        <a href="#contact" class="tab-cta">Hubungi Kami <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">🎬</div><p class="ph">COMMERCIAL<br>PORTFOLIO<br><span style="font-size:.55em;opacity:.5">— isi dengan foto/video —</span></p></div>
     </div>
-    <div class="service-card reveal reveal-delay-2">
-      <span class="card-num">02</span>
-      <div class="card-icon">◎</div>
-      <h3>Web Design & Dev</h3>
-      <p>Website yang bukan hanya cantik, tapi juga cepat, interaktif, dan dibangun untuk konversi.</p>
-      <span class="card-arrow">↗</span>
+
+    <div class="tab-panel" id="tab-ai">
+      <div class="tab-panel-left">
+        <p class="section-label">02 — AI Creative Agency</p>
+        <h3>AI CREATIVE<br>AGENCY</h3>
+        <p>Memadukan teknologi AI terbaru dengan sentuhan kreatif manusia — menghasilkan visual, konten, dan kampanye yang belum pernah ada sebelumnya.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>AI-Generated Visual &amp; Art Direction</div>
+          <div class="tab-highlight"><span class="dot"></span>AI Video &amp; Motion Content</div>
+          <div class="tab-highlight"><span class="dot"></span>AI Brand Identity</div>
+          <div class="tab-highlight"><span class="dot"></span>Hybrid Human + AI Production</div>
+        </div>
+        <a href="#contact" class="tab-cta">Hubungi Kami <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">🤖</div><p class="ph">AI CREATIVE<br>SHOWCASE<br><span style="font-size:.55em;opacity:.5">— isi dengan karya AI —</span></p></div>
     </div>
-    <div class="service-card reveal reveal-delay-3">
-      <span class="card-num">03</span>
-      <div class="card-icon">◇</div>
-      <h3>Motion & Content</h3>
-      <p>Video, animasi, konten sosial — visual storytelling yang membuat audiens berhenti scroll.</p>
-      <span class="card-arrow">↗</span>
+
+    <div class="tab-panel" id="tab-creative">
+      <div class="tab-panel-left">
+        <p class="section-label">03 — Creative Agency</p>
+        <h3>CREATIVE<br>AGENCY</h3>
+        <p>Strategi kreatif menyeluruh — dari konsep kampanye, visual identity, konten sosial media, hingga art direction untuk berbagai platform.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Campaign Strategy &amp; Concept</div>
+          <div class="tab-highlight"><span class="dot"></span>Social Media Content Creation</div>
+          <div class="tab-highlight"><span class="dot"></span>Art Direction</div>
+          <div class="tab-highlight"><span class="dot"></span>Brand Activation Visual</div>
+        </div>
+        <a href="#contact" class="tab-cta">Hubungi Kami <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">✦</div><p class="ph">CREATIVE<br>WORK<br><span style="font-size:.55em;opacity:.5">— isi dengan karya —</span></p></div>
     </div>
+
+    <div class="tab-panel" id="tab-podcast">
+      <div class="tab-panel-left">
+        <p class="section-label">04 — Podcast</p>
+        <h3>PODCAST<br>PRODUCTION</h3>
+        <p>Studio podcast lengkap dengan setup video &amp; audio professional. Kami handle dari recording, editing, hingga distribusi konten ke semua platform.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Full Studio Setup (Video + Audio)</div>
+          <div class="tab-highlight"><span class="dot"></span>Multi-Camera Recording</div>
+          <div class="tab-highlight"><span class="dot"></span>Editing &amp; Sound Design</div>
+          <div class="tab-highlight"><span class="dot"></span>Thumbnail &amp; Branding Kit</div>
+        </div>
+        <a href="#contact" class="tab-cta">Book Studio <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">🎙️</div><p class="ph">PODCAST<br>STUDIO<br><span style="font-size:.55em;opacity:.5">— isi dengan foto studio —</span></p></div>
+    </div>
+
+    <div class="tab-panel" id="tab-wedding">
+      <div class="tab-panel-left">
+        <p class="section-label">05 — Wedding</p>
+        <h3>WEDDING<br>PHOTOGRAPHY<br>&amp; FILM</h3>
+        <p>Setiap momen pernikahan adalah cerita yang tak bisa diulang. Kami merekamnya dengan pendekatan sinematik yang timeless — bukan sekadar dokumentasi.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Wedding Cinematic Film</div>
+          <div class="tab-highlight"><span class="dot"></span>Wedding Photography</div>
+          <div class="tab-highlight"><span class="dot"></span>Prewedding Session</div>
+          <div class="tab-highlight"><span class="dot"></span>Same Day Edit (SDE)</div>
+        </div>
+        <a href="#contact" class="tab-cta">Cek Paket <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">💍</div><p class="ph">WEDDING<br>GALLERY<br><span style="font-size:.55em;opacity:.5">— isi dengan foto wedding —</span></p></div>
+    </div>
+
+    <div class="tab-panel" id="tab-mua">
+      <div class="tab-panel-left">
+        <p class="section-label">06 — Make Up Artist</p>
+        <h3>MAKE UP<br>ARTIST</h3>
+        <p>Tim MUA profesional kami siap mendampingi setiap sesi foto dan video — dari wedding, commercial, editorial, hingga graduation dan portrait.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Wedding &amp; Bridal Makeup</div>
+          <div class="tab-highlight"><span class="dot"></span>Commercial &amp; Editorial Makeup</div>
+          <div class="tab-highlight"><span class="dot"></span>Graduation &amp; Portrait Makeup</div>
+          <div class="tab-highlight"><span class="dot"></span>Hair Styling</div>
+        </div>
+        <a href="#contact" class="tab-cta">Book MUA <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">💄</div><p class="ph">MUA<br>PORTFOLIO<br><span style="font-size:.55em;opacity:.5">— isi dengan foto MUA —</span></p></div>
+    </div>
+
+    <div class="tab-panel" id="tab-studio">
+      <div class="tab-panel-left">
+        <p class="section-label">07 — Photo Studio</p>
+        <h3>PHOTO<br>STUDIO</h3>
+        <p>Studio foto dengan backdrop, lighting setup, dan props lengkap. Tersedia paket Family, Graduation, dan Portrait — cocok untuk semua kebutuhan dokumentasi.</p>
+        <div class="tab-highlights">
+          <div class="tab-highlight"><span class="dot"></span>Family Portrait Session</div>
+          <div class="tab-highlight"><span class="dot"></span>Graduation Photography</div>
+          <div class="tab-highlight"><span class="dot"></span>Personal Portrait</div>
+          <div class="tab-highlight"><span class="dot"></span>Studio Rental (Self Shoot)</div>
+        </div>
+        <a href="#contact" class="tab-cta">Book Sesi <span class="arr">↗</span></a>
+      </div>
+      <div class="tab-panel-right"><div class="ti">📸</div><p class="ph">PHOTO<br>STUDIO<br><span style="font-size:.55em;opacity:.5">— isi dengan foto studio —</span></p></div>
+    </div>
+
   </div>
 </section>
 
 <!-- WORK -->
 <section id="work">
   <p class="section-label work-label reveal">Selected Work</p>
-  <h2 class="work-title reveal reveal-delay-1">PROJECTS</h2>
+  <h2 class="work-title reveal rd1">PROJECTS</h2>
   <div style="overflow:hidden;">
     <div class="projects-marquee">
-      <!-- Cards 1-6 then duplicated -->
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">Brand Identity</p>
-          <p class="project-name">NOCTURNE CO.</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#0f1a0f 0%,#1a2e1a 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">Web Design</p>
-          <p class="project-name">VERDE SPACE</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a100f 0%,#2e1a18 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">Motion</p>
-          <p class="project-name">EMBER FILM</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#0d0f1a 0%,#1a1e2e 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">Brand + Web</p>
-          <p class="project-name">AXIOM LAB</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a1a10 0%,#2e2a18 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">Content</p>
-          <p class="project-name">SÓLIDA MKT</p>
-        </div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#161016 0%,#231823 100%);"></div>
-        <div class="project-info">
-          <p class="project-tag">UI / UX</p>
-          <p class="project-name">FORMA APP</p>
-        </div>
-      </div>
-      <!-- duplicate for seamless loop -->
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);"></div>
-        <div class="project-info"><p class="project-tag">Brand Identity</p><p class="project-name">NOCTURNE CO.</p></div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#0f1a0f 0%,#1a2e1a 100%);"></div>
-        <div class="project-info"><p class="project-tag">Web Design</p><p class="project-name">VERDE SPACE</p></div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a100f 0%,#2e1a18 100%);"></div>
-        <div class="project-info"><p class="project-tag">Motion</p><p class="project-name">EMBER FILM</p></div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#0d0f1a 0%,#1a1e2e 100%);"></div>
-        <div class="project-info"><p class="project-tag">Brand + Web</p><p class="project-name">AXIOM LAB</p></div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#1a1a10 0%,#2e2a18 100%);"></div>
-        <div class="project-info"><p class="project-tag">Content</p><p class="project-name">SÓLIDA MKT</p></div>
-      </div>
-      <div class="project-card">
-        <div class="project-bg" style="background: linear-gradient(135deg,#161016 0%,#231823 100%);"></div>
-        <div class="project-info"><p class="project-tag">UI / UX</p><p class="project-name">FORMA APP</p></div>
-      </div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d)"></div><div class="project-info"><p class="project-tag">Commercial</p><p class="project-name">BRAND SHOOT</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#0f1a0f,#1a2e1a)"></div><div class="project-info"><p class="project-tag">Wedding</p><p class="project-name">CINEMATIC FILM</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a100f,#2e1a18)"></div><div class="project-info"><p class="project-tag">Podcast</p><p class="project-name">STUDIO SESSION</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#0d0f1a,#1a1e2e)"></div><div class="project-info"><p class="project-tag">AI Creative</p><p class="project-name">AI CAMPAIGN</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a1a10,#2e2a18)"></div><div class="project-info"><p class="project-tag">Photo Studio</p><p class="project-name">GRADUATION</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#161016,#231823)"></div><div class="project-info"><p class="project-tag">Portrait</p><p class="project-name">EDITORIAL</p></div></div>
+      <!-- duplicate for loop -->
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d)"></div><div class="project-info"><p class="project-tag">Commercial</p><p class="project-name">BRAND SHOOT</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#0f1a0f,#1a2e1a)"></div><div class="project-info"><p class="project-tag">Wedding</p><p class="project-name">CINEMATIC FILM</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a100f,#2e1a18)"></div><div class="project-info"><p class="project-tag">Podcast</p><p class="project-name">STUDIO SESSION</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#0d0f1a,#1a1e2e)"></div><div class="project-info"><p class="project-tag">AI Creative</p><p class="project-name">AI CAMPAIGN</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#1a1a10,#2e2a18)"></div><div class="project-info"><p class="project-tag">Photo Studio</p><p class="project-name">GRADUATION</p></div></div>
+      <div class="project-card"><div class="project-bg" style="background:linear-gradient(135deg,#161016,#231823)"></div><div class="project-info"><p class="project-tag">Portrait</p><p class="project-name">EDITORIAL</p></div></div>
     </div>
   </div>
 </section>
@@ -704,78 +425,93 @@
 <!-- CONTACT -->
 <section id="contact">
   <div class="contact-blob"></div>
-  <p class="contact-eyebrow reveal">Ready to Start?</p>
-  <h2 class="contact-heading reveal reveal-delay-1">
-    LET'S<br><em>MAKE</em><br>SOMETHING
-  </h2>
-  <a href="mailto:hello@morstudio.id" class="contact-email reveal reveal-delay-2">hello@morstudio.id</a>
+  <div class="contact-inner">
+    <div class="reveal">
+      <p class="section-label">Ready to Start?</p>
+      <h2 class="contact-heading">LET'S<br><em>MAKE</em><br>SOMETHING</h2>
+      <p class="contact-sub">Ceritakan project Anda — kami siap membahasnya kapan saja.</p>
+    </div>
+    <div class="contact-links reveal rd2">
+      <div class="contact-block">
+        <p class="contact-block-label">Instagram</p>
+        <a href="https://instagram.com/mor.creativee" target="_blank" rel="noopener" class="contact-link"><span class="ci">📷</span> @mor.creativee</a>
+        <a href="https://instagram.com/mor.studioo" target="_blank" rel="noopener" class="contact-link"><span class="ci">📷</span> @mor.studioo</a>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-label">WhatsApp</p>
+        <a href="https://wa.me/6281381199945" target="_blank" rel="noopener" class="contact-link"><span class="ci">💬</span> +62 813-8119-9945 — Titus</a>
+        <a href="https://wa.me/6287774384566" target="_blank" rel="noopener" class="contact-link"><span class="ci">💬</span> +62 877-7438-4566 — Niken</a>
+      </div>
+      <div class="contact-block">
+        <p class="contact-block-label">Location</p>
+        <span class="contact-link" style="cursor:default;"><span class="ci">📍</span> Jakarta, Indonesia</span>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <p>© 2024 MOR Studio. All rights reserved.</p>
-  <p class="footer-logo">MOR<span>.</span></p>
-  <p style="font-size:.72rem;color:rgba(245,240,232,.2);">Jakarta, Indonesia</p>
+  <svg height="26" viewBox="0 0 170 36" xmlns="http://www.w3.org/2000/svg" fill="none" opacity=".25">
+    <path d="M4 32 L4 6 L16 24 L28 6 L28 32" stroke="#f5f0e8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="50" cy="19" rx="12" ry="14" stroke="#f5f0e8" stroke-width="1.6"/>
+    <path d="M72 32 L72 6 L86 6 Q95 6 95 14 Q95 22 86 22 L72 22 M84 22 L97 32" stroke="#f5f0e8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="130" y="22" font-family="'DM Sans',sans-serif" font-size="6.5" letter-spacing="2.5" fill="#f5f0e8" font-weight="300">STUDIO</text>
+  </svg>
+  <p>Photography &amp; Videography — Jakarta</p>
 </footer>
 
 <script>
-  // ── CURSOR
-  const cursor = document.getElementById('cursor');
-  const ring   = document.getElementById('cursor-ring');
-  let mx=0, my=0, rx=0, ry=0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.transform = `translate(${mx-6}px,${my-6}px)`;
-  });
-  function lerp(a,b,t){ return a+(b-a)*t; }
-  (function animRing(){
-    rx = lerp(rx,mx,0.1); ry = lerp(ry,my,0.1);
-    ring.style.transform = `translate(${rx-20}px,${ry-20}px)`;
-    requestAnimationFrame(animRing);
-  })();
+// ── CURSOR — dot instant, ring fast lerp
+const cur  = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0,cs=1,rs=1;
 
-  // scale cursor on hover clickables
-  document.querySelectorAll('a,button,.service-card,.project-card').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{
-      cursor.style.transform += ' scale(2.5)';
-      ring.style.transform += ' scale(1.5)';
-    });
-    el.addEventListener('mouseleave',()=>{
-      cursor.style.transform = cursor.style.transform.replace(' scale(2.5)','');
-      ring.style.transform = ring.style.transform.replace(' scale(1.5)','');
-    });
-  });
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.transform=`translate(${mx-5}px,${my-5}px) scale(${cs})`;
+});
 
-  // ── NAV SCROLL
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll',()=>{
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  });
+(function loop(){
+  // lerp 0.22 = snappy but not jarring
+  rx+=(mx-rx)*.22;
+  ry+=(my-ry)*.22;
+  ring.style.transform=`translate(${rx-18}px,${ry-18}px) scale(${rs})`;
+  requestAnimationFrame(loop);
+})();
 
-  // ── SCROLL REVEAL
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('visible'); }
-    });
-  },{ threshold:0.15 });
-  reveals.forEach(el=>observer.observe(el));
+document.querySelectorAll('a,button,.project-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cs=2;rs=1.5;cur.style.transform=`translate(${mx-5}px,${my-5}px) scale(${cs})`;});
+  el.addEventListener('mouseleave',()=>{cs=1;rs=1;cur.style.transform=`translate(${mx-5}px,${my-5}px) scale(${cs})`;});
+});
 
-  // trigger hero reveals immediately
-  document.querySelectorAll('#hero .reveal').forEach((el,i)=>{
-    setTimeout(()=>el.classList.add('visible'), i*150+100);
-  });
+// ── NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
 
-  // ── PARALLAX BLOBS on mousemove
-  const blobs = document.querySelectorAll('.blob');
-  document.addEventListener('mousemove',e=>{
-    const xFrac = (e.clientX/window.innerWidth - .5);
-    const yFrac = (e.clientY/window.innerHeight - .5);
-    blobs.forEach((b,i)=>{
-      const s = (i+1)*18;
-      b.style.transform = `translate(${xFrac*s}px,${yFrac*s}px)`;
-    });
+// ── SCROLL REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('#hero .reveal').forEach((el,i)=>setTimeout(()=>el.classList.add('visible'),i*160+80));
+
+// ── BLOB PARALLAX
+const blobs=document.querySelectorAll('.blob');
+document.addEventListener('mousemove',e=>{
+  const xf=(e.clientX/innerWidth-.5),yf=(e.clientY/innerHeight-.5);
+  blobs.forEach((b,i)=>{const s=(i+1)*14;b.style.transform=`translate(${xf*s}px,${yf*s}px)`;});
+},{passive:true});
+
+// ── TABS
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const t=btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-'+t).classList.add('active');
   });
+});
 </script>
 </body>
 </html>
